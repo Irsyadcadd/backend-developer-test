@@ -28,17 +28,17 @@ public class Customer implements Serializable{
     @Column(name="customer_id", length=11, nullable=false)
     private long id;
 
-    @Column(name="phone_number", length=50, nullable=false)
+    @Column(name="phone_number", length=15, nullable=false, unique=true)
     private String phoneNumber;
 
-    @Column(name="email", length=50, nullable=false)
+    @Column(name="email", length=50, nullable=false, unique=true)
     private String email;
 
     @Column(name="address", length=50, nullable=false)
     private String address;
 
     @OneToOne
-    @JoinColumn(name = "account_number", referencedColumnName = "number", nullable = true)
+    @JoinColumn(name = "account_number", referencedColumnName = "number", nullable = false, unique=true)
     private Account account;
 
 

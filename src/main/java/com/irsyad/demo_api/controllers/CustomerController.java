@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.irsyad.demo_api.dto.CustomerDTO;
-import com.irsyad.demo_api.models.entities.Customer;
 import com.irsyad.demo_api.response.ApiResponse;
 import com.irsyad.demo_api.response.CustomerResponse;
 import com.irsyad.demo_api.services.CustomerService;
@@ -34,6 +33,7 @@ public class CustomerController {
         @RequestParam(defaultValue = "10") int pageSize
     ) {
         ApiResponse<Page<CustomerDTO>> apiResponse = new ApiResponse<>();
+
         try {
             Page<CustomerDTO> customersPagination = customerService.findAllCustomers(offset, pageSize);
             apiResponse.setData(customersPagination);
@@ -64,7 +64,7 @@ public class CustomerController {
     }
     
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse<CustomerResponse>> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<ApiResponse<CustomerResponse>> createCustomer(@RequestBody CustomerDTO customer) {
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         try {
             CustomerDTO createdCustomer = customerService.saveCustomer(customer);
@@ -80,11 +80,11 @@ public class CustomerController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<ApiResponse<CustomerResponse>> update(@PathVariable Long id, @RequestBody Customer customerDetails) {
+    public ResponseEntity<ApiResponse<CustomerResponse>> update(@PathVariable Long id, @RequestBody CustomerDTO customerDto) {
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
 
         try {
-            CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDetails);
+            CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDto);
             CustomerResponse customerResponse = new CustomerResponse(updatedCustomer);
             apiResponse.setData(customerResponse);
             apiResponse.setSuccess(true);

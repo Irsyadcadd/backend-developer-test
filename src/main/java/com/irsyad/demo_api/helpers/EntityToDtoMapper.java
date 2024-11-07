@@ -5,7 +5,7 @@ import com.irsyad.demo_api.dto.CustomerDTO;
 import com.irsyad.demo_api.models.entities.Account;
 import com.irsyad.demo_api.models.entities.Customer;
 
-public class Mapper {
+public class EntityToDtoMapper {
     public static AccountDTO convertToAccountDTO(Account account) {
         AccountDTO dto = new AccountDTO();
         dto.setNumber(account.getNumber());
@@ -17,11 +17,10 @@ public class Mapper {
 
     public static CustomerDTO convertToCustomerDTO(Customer customer) {
         CustomerDTO dto = new CustomerDTO();
-        dto.setId(customer.getId());
         dto.setPhoneNumber(customer.getPhoneNumber());
         dto.setEmail(customer.getEmail());
         dto.setAddress(customer.getAddress());
-        dto.setAccountDTO(convertToAccountDTO(customer.getAccount()));
+        dto.setAccount(convertToAccountDTO(customer.getAccount()));
         return dto;
     }
 }
